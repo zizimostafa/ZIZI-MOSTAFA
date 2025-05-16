@@ -108,3 +108,51 @@ INSERT INTO OrderItems (OrderID, ProductID, Quantity, Price) VALUES
 (8, 8, 1, 250.00),
 (9, 9, 2, 200.00),
 (10, 10, 1, 20000.00);
+
+
+///ال Queries ///
+
+SELECT * FROM Users;
+
+
+SELECT * FROM Products;
+
+
+SELECT * FROM Orders;
+
+
+SELECT Orders.*
+FROM Orders
+JOIN Users ON Orders.UserID = Users.UserID
+WHERE Users.Name = 'Zizi';
+
+
+SELECT * FROM Products
+WHERE Price > 100;
+
+SELECT Orders.OrderID, Products.Name AS ProductName, OrderItems.Quantity, OrderItems.Price
+FROM OrderItems
+JOIN Orders ON OrderItems.OrderID = Orders.OrderID
+JOIN Products ON OrderItems.ProductID = Products.ProductID;
+
+
+SELECT Users.Name, COUNT(Orders.OrderID) AS TotalOrders
+FROM Users
+JOIN Orders ON Users.UserID = Orders.UserID
+GROUP BY Users.Name;
+
+
+SELECT Products.Name, SUM(OrderItems.Quantity * OrderItems.Price) AS TotalRevenue
+FROM OrderItems
+JOIN Products ON OrderItems.ProductID = Products.ProductID
+GROUP BY Products.Name;
+
+
+SELECT Orders.OrderID, Payments.PaymentMethod
+FROM Payments
+JOIN Orders ON Payments.OrderID = Orders.OrderID
+WHERE Payments.PaymentMethod = 'Visa';
+
+
+SELECT * FROM Products
+WHERE StockQuantity = 0;
